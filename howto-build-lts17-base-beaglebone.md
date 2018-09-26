@@ -71,7 +71,7 @@ The build will take a while to build, depending on the speed of your machine.
 ### Where is the output?
 The output of the build is located in
 ```
-beaglebone/build/tmp-glibc/deploy/images/
+beaglebone/build/tmp-glibc/deploy/images/beaglebone
 ```
 ### Appendix: Beaglebone BSP Notes from the meta-yocto README.hardware file
 For convenience, here is the exact content of the current version of the README.hardware file located in 
@@ -113,3 +113,6 @@ From a Linux system with access to the image files perform the following steps:
 
   3. Insert the SD card into the Beaglebone and boot the board.
 ```
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTM5Njg2NTgyNV19
+-->
