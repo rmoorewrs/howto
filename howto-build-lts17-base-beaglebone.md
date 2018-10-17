@@ -34,7 +34,7 @@ $ cd beaglebone
 $ git clone --branch WRLINUX_10_17_BASE <path-to-mirror>/mirror/wrlinux-x
 $ wrlinux/setup.sh --machines beaglebone --distros wrlinux --dl-layers
 ```
-There a couple of files worth reading in the project directory:
+There are a couple of files worth reading in the project directory:
 - `<proj_dir>/README` contains instructions on working with layers, updating the git repo, etc.
 - `<proj_dir>/layers/meta-yocto/meta-yocto-bsp/README.hardware contains details on the BSPs contained in the `meta-yocto` layer, which includes boot instructions for the beaglebone BSP.
 
