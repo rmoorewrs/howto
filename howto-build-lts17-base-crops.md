@@ -1,4 +1,4 @@
-# WR Linux LTS17 BASE Platform build using Mirror, CROPS/Poky and Docker
+# How To build WR Linux LTS17 BASE Platform using Mirror, CROPS/Poky and Docker
 
 CROPS (CROssPlatformS) is a Yocto project aimed at providing a consistent build environment and avoiding build host contamination through the use of Linux containers. Docker is used in this example.
 
