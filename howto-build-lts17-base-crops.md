@@ -92,21 +92,21 @@ $ ./wrlinux-x/setup.sh \
 ```
 
 After running setup, you need to edit the build/conf/local.conf file to make the following changes (along with any others you wish to make):
-1. Enable network access
+1. Enable network access by changing: 
 ```
 BB_NO_NETWORK ?= '1'
-```
+
 to
-```
+
 BB_NO_NETWORK ?= '0'
 ```
 
 2. Uncomment the line that specifies the virtual/kernel:
 ```
-PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
-```
-to
-```
+# PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+
+to 
+
 PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
 ```
 
