@@ -40,7 +40,7 @@ Client:
 
 Try the `hello-world` container:
 ```
-$ docker run hello-world
+$ docker container run --rm hello-world
 ```
 >Note: if you get an error, either the docker service isn't running or you failed to add yourself to the correct docker group.
 
@@ -58,7 +58,7 @@ cd mirror
 ```
 Clone from WindShare like any other build:
 ```
-$ git clone --branch WRLINUX_10_17_BASE https://windshare.windriver.com/remote.php/gitsmart/WRLinux-lts-17-Core/wrlinux-x
+$ git clone --branch WRLINUX_10_17_BASE https://github.com/WindRiver-Labs/wrlinux-x.git./wr 
 ```
 
 Next, configure the mirror with setup.sh (this is where the project becomes a mirror):
@@ -73,7 +73,7 @@ Create a directory on the build host where the build will live. Substitute your 
 $ mkdir mybuild
 $ cd mybuild
 $ export MIRROR=<my_wrl_path>/mirror
-$ docker run --rm -it -e MIRROR=$MIRROR -v $MIRROR:$MIRROR -v $(pwd):$(pwd) crops/poky --workdir=$(pwd)
+$ docker container run --rm -it -e MIRROR=$MIRROR -v $MIRROR:$MIRROR -v $(pwd):$(pwd) crops/poky --workdir=$(pwd)
 ```
 Note: The first time this runs, it will take a few minutes to download the initial crops image. After that, it will start very quickly.
 
@@ -83,20 +83,40 @@ pokyuser@bfd43fd1cd9b:/home/builduser/mybuild$
 ```
 
 ### 3) Clone and setup your LTS17 project
-Now inside the container, you will build the LTS17 platform of your choice (OVP host in this example) :
+Now inside the container, you will build the LTS17 platform of your choice. 
+
+Here's how to setup a build for glibc-core image:
 ```
-$ git clone --branch WRLINUX_10_17_LTS $MIRROR/wrlinux-x  
+$ git clone --branch WRLINUX_10_17_BASE $MIRROR/wrlinux-x  
 $ ./wrlinux-x/setup.sh \
---machine intel-x86-64 \
---distro wrlinux-ovp \
+--machines intel-corei7-64 \
+--distros wrlinux \
+--dl-layers
+```
+
+Here's how to setup a build for WR Linux OVP (open virtualization profile) host:
+```
+$ git clone --branch WRLINUX_10_17_BASE $MIRROR/wrlinux-x  
+$ ./wrlinux-x/setup.sh \
+--machines intel-corei7-64 \
+--distros wrlinux-ovp \
 --templates feature/kvm \
 --dl-layers
 ```
 
 ### 4) Build the LTS17 platform:
+While still in the crops container:
 ```
 $ . ./environment-setup-x86_64-wrlinuxsdk-linux
 $ . ./oe-init-build-env
+```
+And then for the glibc-core image:
+```
+$ bitbake wrlinux-image-glibc-core
+```
+
+Or for the OVP Host:
+```
 $ bitbake wrlinux-image-ovp-kvm 
 ```
 This will take awhile...
@@ -107,11 +127,11 @@ This will take awhile...
 To make life easier, create a convenience alias called 'runcrops' so you don't have to remember the docker command line. A simple example would be to add the following lines to the .bashrc file on your build machine:
 ```
 export MIRROR=<my_wrl_path>/mirror
-alias runcrops='docker run --rm -it -v $MIRROR:$MIRROR -v $(pwd):$(pwd) crops/poky --workdir=$(pwd)'
+alias runcrops='docker container run --rm -it -v $MIRROR:$MIRROR -v $(pwd):$(pwd) crops/poky --workdir=$(pwd)'
 ```
-After your .bashrc is sourced, you should be able to cd into a build directory and run `runcrops`
+After your .bashrc is sourced, you should be able to cd into your project directory and run `runcrops`
 ```
-$ cd ovpbuild
+$ cd mybuild
 $ runcrops
-pokyuser@7f7430d76fb6:/home/wruser/ovpbuild$
+pokyuser@7f7430d76fb6:/home/wruser/mybuild$
 ``` 
