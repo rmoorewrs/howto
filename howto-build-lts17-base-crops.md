@@ -9,8 +9,8 @@ Note that the build and mirror directory live on your build host and are tempora
     - see the docker website and/or your distro's instructions for installing docker.
 - sudo privilege
 - external internet access
-- python 2.7.x from Ubuntu apt repo (python 3 may work as well)
-- about 100GB of free space for the WRL LTS17 OVP build, less for others
+- python 2.7.x (python 3 may work as well)
+- about 100GB of free space for the WRL LTS17 OVP build, less for other images
 - Host packages (for Ubuntu):
 ```
 sudo apt update
